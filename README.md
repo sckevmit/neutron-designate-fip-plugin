@@ -11,7 +11,7 @@ A working Desgnate and neutron services required
 # Installation
 
 ```
-1. git clone <project> to the python dist-packages or site-packages
+1. git clone <project>  and copy symc dir to the python dist-packages or site-packages
 2. change the config options as stated below
 3. restart the neutron api service(/etc/init.d/neutron-api restart)
 ```
