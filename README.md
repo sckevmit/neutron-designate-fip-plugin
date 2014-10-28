@@ -6,7 +6,7 @@ Create a domain and fip records automatically for multi-tenancy via designate. T
 
 # Prerequisites
 
-A working Desgnate and neutron services required
+A working Designate and neutron services required
 
 # Installation
 
