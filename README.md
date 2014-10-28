@@ -1,4 +1,4 @@
-neutron-desgnate-fip-plugin
+neutron-designate-fip-plugin
 ===========================
 
 # Description
