@@ -239,16 +239,14 @@ class DesignateMiddleware(object):
         if ('DELETE' in env.get('REQUEST_METHOD', '') and
             '/floatingips' in env.get('PATH_INFO', '')):
             try:
-                #fip_url_base = conf.get('contrail_fip_url_base', #FIXME
-                #                        'http://127.0.0.1:8082/floating-ip')
-                fip_url_base = 'http://192.168.17.149:9696/v2.0/floatingips'
+                fip_url_base = (env['REMOTE_ADDR'] + ':' + env['SERVER_PORT'] +
+                               env['SCRIPT_NAME'] + '/floatingips')
                 fip_id = env['PATH_INFO'].split('/')[-1].replace('.json','')
-                fip_url = '%s/%s' %(fip_url_base, fip_id)
+                fip_url = 'http://%s/%s' %(fip_url_base, fip_id)
                 resp = requests.get(fip_url, headers={'X-Auth-Token': env['HTTP_X_AUTH_TOKEN']})
                 if resp.status_code != 200:
                     raise Exception('status %s for floating ip read' %(resp.status_code))
 
-                #fip_dict = json.loads(resp.text)['floating-ip'] #FIXME
                 fip_dict = json.loads(resp.text)['floatingip']
                 self._logger.debug('Read in floating ip info of %s for delete of %s',
                                    fip_dict, fip_id)
