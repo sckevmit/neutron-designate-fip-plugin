@@ -74,11 +74,12 @@ class DesignateMiddleware(object):
         fip_dom_name = '%s.%s' %(proj_name, self._conf['fip_tld'].lower())
         return fip_dom_name
 
-    def _find_desgnate_server(self, X_Auth_Token):
+    def _find_designate_server(self, X_Auth_Token, env):
 	server_list = []
 	token = X_Auth_Token
  	url = '%s/servers' %(self._conf['designate_url'])
-	resp = requests.get(url,
+	print "token is ",token
+        resp = requests.get(url,
 	    headers={'X-Auth-Token': token})
 	if resp.status_code != 200:
             raise Exception('Auth failed, status %s, msg %s, env %s',
@@ -277,7 +278,8 @@ class DesignateMiddleware(object):
                 if not fip_dom_id:
                     self._logger.debug('Designate domain %s not found, creating...', fip_dom_name)
 		    ## Creating NS record in dc_domain(fip_tld)
-		    dsg_ns_srvs = self._find_desgnate_server(self._admin_token)
+		    #dsg_ns_srvs = self._find_designate_server(self._admin_token, env) #FIXME
+		    dsg_ns_srvs = self._find_designate_server(env['HTTP_X_AUTH_TOKEN'], env)
 		    if dsg_ns_srvs:
 			for srv in dsg_ns_srvs:
 		    		self._create_designate_record(dc_dom_id, fip_dom_name, self._admin_token,'NS', srv)
