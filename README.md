@@ -1,5 +1,5 @@
 neutron-designate-fip-plugin
-===========================
+============================
 
 # Description
 
