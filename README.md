@@ -37,7 +37,7 @@ ttl=3600
 Add the filter "designate-extension" to the [composite:neutronapi_v2_0] as
 below:
 ```
-keystone = authtoken keystonecontext ```designate-extension``` extensions neutronapiapp_v2_0
+keystone = authtoken keystonecontext designate-extension extensions neutronapiapp_v2_0
 ```
 
 # License
